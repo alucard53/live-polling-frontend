@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from 'react'
 import { Option } from '../lib/types/global.d'
-import OptionInputRow from './optionInputRow'
+import OptionInputRow from './OptionInputRow'
 
 export default function OptionsInput({
   options,

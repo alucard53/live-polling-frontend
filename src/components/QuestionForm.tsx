@@ -1,5 +1,5 @@
 import { Dispatch, FormEvent, SetStateAction, useState } from 'react'
-import OptionsInput from './optionsInput'
+import OptionsInput from './OptionsInput'
 import { socket } from '../lib/socket'
 import { validateQuestion } from '../lib/validateQuestion'
 import { Option, Response } from '../lib/types/global.d'

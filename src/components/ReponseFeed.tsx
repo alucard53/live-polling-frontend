@@ -18,8 +18,8 @@ export default function ResponseFeed({
   const total = response.options.reduce((acc, { count }) => acc + count, 0)
 
   return (
-    <div className="flex flex-col gap-5 rounded-lg p-5 bg-gray-700 shadow-2xl w-2/5 min-w-72 font-semibold">
-      <h1 className="bg-blue-900 text-justify p-5 rounded-xl text-xl inline">
+    <div className="flex flex-col gap-5 rounded-lg p-5 bg-gray-700 shadow-2xl w-full min-w-72 font-semibold">
+      <h1 className="bg-blue-900 p-5 rounded-xl text-xl inline">
         {response.prompt}
       </h1>
 

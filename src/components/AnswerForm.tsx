@@ -1,8 +1,8 @@
 import { Dispatch, FormEvent, SetStateAction } from 'react'
 import { StudentQuestion } from '../lib/types/global'
 import { socket } from '../lib/socket'
-import AnswerOptions from './answerOptions'
-import Timer from './timer'
+import AnswerOptions from './AnswerOptions'
+import Timer from './Timer'
 
 export default function AnswerForm({
   question,
@@ -33,11 +33,10 @@ export default function AnswerForm({
       onSubmit={handleSubmit}
       className="flex flex-col gap-5 rounded-lg p-5 bg-gray-700 shadow-2xl w-2/5 min-w-80 font-semibold"
     >
+      {<Timer time={time} setTime={setTime} />}
       <h1 className="bg-blue-900 text-center p-5 rounded-xl text-xl">
         {question.prompt}
       </h1>
-
-      <Timer time={time} setTime={setTime} />
 
       <AnswerOptions
         question={question}

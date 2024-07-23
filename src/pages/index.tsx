@@ -1,4 +1,4 @@
-import LinkButton from '../components/linkButton';
+import LinkButton from '../components/LinkButton'
 
 export default function Index() {
   return (
@@ -6,5 +6,5 @@ export default function Index() {
       <LinkButton content="Student" url="/studentLogin" />
       <LinkButton content="Teacher" url="/teacher" />
     </div>
-  );
+  )
 }

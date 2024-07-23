@@ -26,5 +26,5 @@ export default function Timer({
     }
   }, [])
 
-  return time
+  return <span className="ml-auto">{`${time} seconds remmaining`}</span>
 }

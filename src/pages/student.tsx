@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { socket } from '../lib/socket'
 import { StudentQuestion, Response } from '../lib/types/global'
-import AnswerForm from '../components/answerForm'
-import ResponseFeed from '../components/reponseFeed'
+import AnswerForm from '../components/AnswerForm'
+import ResponseFeed from '../components/ReponseFeed'
 
 export default function Student() {
   const [question, setQuestion] = useState<StudentQuestion | null>(null)
@@ -15,6 +15,7 @@ export default function Student() {
     socket.connect()
     function onConnect() {
       console.log('connected')
+      socket.emit('student')
     }
     function onDisconnect() {
       console.log('disconnected')
@@ -73,7 +74,11 @@ export default function Student() {
         />
       )
     } else if (response) {
-      return <ResponseFeed response={response} answer={answer} />
+      return (
+        <div>
+          <ResponseFeed response={response} answer={answer} />
+        </div>
+      )
     } else {
       return <h1>Waiting for poll results...</h1>
     }

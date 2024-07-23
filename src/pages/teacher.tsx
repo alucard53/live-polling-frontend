@@ -2,12 +2,14 @@ import { useEffect, useState } from 'react'
 import { socket } from '../lib/socket'
 
 import { Response } from '../lib/types/global'
-import QuestionForm from '../components/questionForm'
-import ResponseFeed from '../components/reponseFeed'
+import QuestionForm from '../components/QuestionForm'
+import ResponseFeed from '../components/ReponseFeed'
+import PastResponses from '../components/PastResponses'
 
 export default function Teacher() {
   const [question, setQuestion] = useState(false)
   const [response, setResponse] = useState<Response | null>(null)
+  const [pastResponses, setPastResponses] = useState<Response[]>([])
   const [allAnswered, setAllAnswered] = useState(false)
 
   useEffect(() => {
@@ -24,6 +26,7 @@ export default function Teacher() {
     function onAllAnswered() {
       setAllAnswered(true)
       console.log('all answered')
+      fetchPrevResponses()
     }
 
     socket.on('connect', onConnect)
@@ -39,26 +42,44 @@ export default function Teacher() {
     }
   }, [])
 
+  async function fetchPrevResponses() {
+    try {
+      const res = await fetch(
+        'https://live-polling-backend-1.onrender.com/responses'
+      )
+      const data = await res.json()
+      setPastResponses(data)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  useEffect(() => {
+    fetchPrevResponses()
+  }, [])
+
   return (
-    <div className="w-screen h-screen bg-gray-600 flex flex-col justify-center items-center text-white">
+    <div className="bg-gray-600 flex flex-row items-center text-white gap-10 my-5 justify-evenly">
       {question && response ? (
-        <ResponseFeed response={response} answer={null} />
+        <div className="flex flex-col items-center">
+          <ResponseFeed response={response} answer={null} />
+          {allAnswered && (
+            <button
+              className="bg-blue-950 mt-5 p-3 text-xl w-fit rounded-lg hover:bg-blue-900 transition-all"
+              onClick={() => {
+                setAllAnswered(false)
+                setQuestion(false)
+                setResponse(null)
+              }}
+            >
+              Ask another question
+            </button>
+          )}
+        </div>
       ) : (
         <QuestionForm setQuestion={setQuestion} setResponse={setResponse} />
       )}
-
-      {allAnswered && (
-        <button
-          className="bg-blue-950 mt-5 p-3 text-xl w-fit rounded-lg hover:bg-blue-900 transition-all"
-          onClick={() => {
-            setAllAnswered(false)
-            setQuestion(false)
-            setResponse(null)
-          }}
-        >
-          Ask another question
-        </button>
-      )}
+      <PastResponses responses={pastResponses} />
     </div>
   )
 }
