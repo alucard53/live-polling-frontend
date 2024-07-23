@@ -1,4 +1,4 @@
-import { Dispatch, FormEvent, SetStateAction, useEffect, useState } from 'react'
+import { Dispatch, FormEvent, SetStateAction } from 'react'
 import { StudentQuestion } from '../lib/types/global'
 import { socket } from '../lib/socket'
 import AnswerOptions from './answerOptions'
