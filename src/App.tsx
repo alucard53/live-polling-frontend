@@ -1,8 +1,8 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Index from './pages'
-import StudentLogin from './pages/studentLogin'
-import Student from './pages/student'
-import Teacher from './pages/teacher'
+import Index from './pages/Index'
+import StudentLogin from './pages/StudentLogin'
+import Student from './pages/Student'
+import Teacher from './pages/Teacher'
 
 function App() {
   const router = createBrowserRouter([

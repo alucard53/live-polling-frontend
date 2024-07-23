@@ -19,7 +19,7 @@ export default function StudentLogin() {
   }
 
   return (
-    <div className="w-screen h-screen bg-gray-700 flex flex-row justify-center items-center text-white">
+    <div className="w-screen h-screen flex flex-row justify-center items-center text-white">
       <form onSubmit={handleSubmit} className="flex items-center">
         <input
           placeholder="Enter your name..."

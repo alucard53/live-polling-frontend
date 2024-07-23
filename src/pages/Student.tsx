@@ -85,7 +85,7 @@ export default function Student() {
   }
 
   return (
-    <div className="w-screen h-screen bg-gray-600 flex flex-row justify-center items-center text-white">
+    <div className="w-screen h-screen flex justify-center items-center text-white">
       {inner()}
     </div>
   )
