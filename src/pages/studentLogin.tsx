@@ -1,19 +1,21 @@
 import { FormEvent, useEffect, useState } from 'react'
+import { Navigate, useNavigate } from 'react-router-dom'
 
 export default function StudentLogin() {
   const [name, setName] = useState('')
+  const navigate = useNavigate()
 
   useEffect(() => {
     const saved = sessionStorage.getItem('studentName')
     if (saved) {
-      window.location.replace('student')
+      navigate('student')
     }
   }, [])
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
     sessionStorage.setItem('studentName', name)
-    window.location.replace('student')
+    navigate('/student')
   }
 
   return (
