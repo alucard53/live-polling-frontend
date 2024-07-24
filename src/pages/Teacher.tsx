@@ -26,7 +26,7 @@ export default function Teacher() {
     function onAllAnswered() {
       setAllAnswered(true)
       console.log('all answered')
-      setPastResponses([response!, ...pastResponses])
+      fetchPrevResponses()
     }
 
     socket.on('connect', onConnect)
@@ -42,18 +42,18 @@ export default function Teacher() {
     }
   }, [])
 
-  useEffect(() => {
-    async function fetchPrevResponses() {
-      try {
-        const res = await fetch(
-          'https://live-polling-backend-1.onrender.com/responses'
-        )
-        const data = await res.json()
-        setPastResponses(data)
-      } catch (e) {
-        console.log(e)
-      }
+  async function fetchPrevResponses() {
+    try {
+      const res = await fetch(
+        'https://live-polling-backend-1.onrender.com/responses'
+      )
+      const data = await res.json()
+      setPastResponses(data)
+    } catch (e) {
+      console.log(e)
     }
+  }
+  useEffect(() => {
     fetchPrevResponses()
   }, [])
 
