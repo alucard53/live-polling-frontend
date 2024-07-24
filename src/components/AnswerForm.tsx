@@ -31,7 +31,7 @@ export default function AnswerForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col gap-5 rounded-lg p-5 bg-gray-700 shadow-2xl w-2/5 min-w-80 font-semibold"
+      className="flex flex-col gap-5 rounded-lg p-5 bg-gray-700 shadow-2xl w-2/5 sm:min-w-96 font-semibold"
     >
       {<Timer time={time} setTime={setTime} />}
       <h1 className="bg-blue-900 text-center p-5 rounded-xl text-xl">

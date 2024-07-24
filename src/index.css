@@ -6,4 +6,5 @@ body {
   min-width: 100vw;
   min-height: 100vh;
   background-color: #4b5563;
+  overflow-x: hidden;
 }
