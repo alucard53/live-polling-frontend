@@ -1,6 +1,6 @@
 import { Response } from '../lib/types/global'
 
-function getBorderColor(correct: boolean, index: number, answer: number) {
+function getBorderColor(correct: boolean, index: number, answer: number | null) {
 	if (correct) {
 		return 'border border-2 border-green-300'
 	} else if (index === answer) {
