@@ -1,5 +1,13 @@
 import { Response } from '../lib/types/global'
 
+function getBorderColor(correct: boolean, index: number, answer: number) {
+	if (correct) {
+		return 'border border-2 border-green-300'
+	} else if (index === answer) {
+		return 'border border-2 border-red-500'
+	}
+}
+
 export default function ResponseFeed({
   response,
   answer,
@@ -7,14 +15,6 @@ export default function ResponseFeed({
   response: Response
   answer: number | null
 }) {
-  function getBorderColor(correct: boolean, index: number) {
-    if (correct) {
-      return 'border border-2 border-green-300'
-    } else if (index === answer) {
-      return 'border border-2 border-red-500'
-    }
-  }
-
   const total = response.options.reduce((acc, { count }) => acc + count, 0)
 
   return (
@@ -28,7 +28,8 @@ export default function ResponseFeed({
           <div
             className={`flex justify-between p-4 rounded-xl text-base bg-blue-950 ${getBorderColor(
               option.correct,
-              index
+              index,
+							answer
             )}`}
             key={option.value}
           >

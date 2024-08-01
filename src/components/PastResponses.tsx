@@ -7,7 +7,7 @@ export default function PastResponses({
   responses: Response[]
 }) {
   return (
-    <div className="flex-flex-col p-5 rounded-lg overflow-x-hidden overflow-y-scroll max-h-dvh bg-slate-700">
+    <div className="flex flex-col p-5 h-2/3 rounded-lg overflow-x-hidden overflow-y-scroll max-h-dvh bg-slate-700">
       <h1 className="bg-blue-950 p-3 text-xl w-fit rounded-lg m-auto font-semibold mb-5">
         Past Responses
       </h1>

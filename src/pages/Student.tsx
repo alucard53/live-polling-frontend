@@ -3,50 +3,19 @@ import { socket } from '../lib/socket'
 import { StudentQuestion, Response } from '../lib/types/global'
 import AnswerForm from '../components/AnswerForm'
 import ResponseFeed from '../components/ReponseFeed'
+import setStudentListeners from '../lib/setStudentListeners'
 
 export default function Student() {
   const [question, setQuestion] = useState<StudentQuestion | null>(null)
   const [response, setResponse] = useState<Response | null>(null)
   const [answer, setAnswer] = useState(-1)
+  const [time, setTime] = useState(60)
 
   const answered = sessionStorage.getItem('answered') === 'true'
 
   useEffect(() => {
-    socket.connect()
-    function onConnect() {
-      console.log('connected')
-      socket.emit('student')
-    }
-    function onDisconnect() {
-      console.log('disconnected')
-    }
-    function onQuestion(question: StudentQuestion) {
-      console.log(question)
-      setQuestion(question)
-      setAnswer(-1)
-      setTime(question.time)
-      setResponse(null)
-      sessionStorage.setItem('answered', 'false')
-    }
-    function onPoll(response: Response) {
-      console.log('latest update', response)
-      setResponse(response)
-    }
-
-    socket.on('connect', onConnect)
-    socket.on('disconnect', onDisconnect)
-    socket.on('question', onQuestion)
-    socket.on('poll', onPoll)
-
-    return () => {
-      socket.off('connect', onConnect)
-      socket.off('disconnect', onDisconnect)
-      socket.off('question', onQuestion)
-      socket.off('poll', onPoll)
-    }
+    return setStudentListeners(setQuestion, setAnswer, setTime, setResponse)
   }, [])
-
-  const [time, setTime] = useState(60)
 
   useEffect(() => {
     if (time === 0) {

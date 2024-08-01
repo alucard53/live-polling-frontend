@@ -1,46 +1,16 @@
 import { useEffect, useState } from 'react'
-import { socket } from '../lib/socket'
 
 import { Response } from '../lib/types/global'
 import QuestionForm from '../components/QuestionForm'
 import ResponseFeed from '../components/ReponseFeed'
 import PastResponses from '../components/PastResponses'
+import setTeacherListeners from '../lib/setTeacherListeners'
 
 export default function Teacher() {
   const [question, setQuestion] = useState(false)
   const [response, setResponse] = useState<Response | null>(null)
   const [pastResponses, setPastResponses] = useState<Response[]>([])
   const [allAnswered, setAllAnswered] = useState(false)
-
-  useEffect(() => {
-    function onConnect() {
-      console.log('connected')
-    }
-    function onDisconnect() {
-      console.log('disconnected')
-    }
-    function onPoll(response: any) {
-      console.log('latest update', response)
-      setResponse(response)
-    }
-    function onAllAnswered() {
-      setAllAnswered(true)
-      console.log('all answered')
-      fetchPrevResponses()
-    }
-
-    socket.on('connect', onConnect)
-    socket.on('disconnect', onDisconnect)
-    socket.on('poll', onPoll)
-    socket.on('allanswered', onAllAnswered)
-
-    return () => {
-      socket.off('connect', onConnect)
-      socket.off('disconnect', onDisconnect)
-      socket.off('poll', onPoll)
-      socket.off('allanswered', onAllAnswered)
-    }
-  }, [])
 
   async function fetchPrevResponses() {
     try {
@@ -53,23 +23,30 @@ export default function Teacher() {
       console.log(e)
     }
   }
+
+  useEffect(() => {
+    return setTeacherListeners(setResponse, setAllAnswered, fetchPrevResponses)
+  }, [])
+
   useEffect(() => {
     fetchPrevResponses()
   }, [])
 
+  function reset() {
+    setAllAnswered(false)
+    setQuestion(false)
+    setResponse(null)
+  }
+
   return (
-    <div className="flex flex-row items-center text-white gap-10 my-5 justify-evenly">
+    <div className="flex flex-row h-screen items-center text-white gap-10 my-5 justify-evenly">
       {question && response ? (
         <div className="flex flex-col items-center">
           <ResponseFeed response={response} answer={null} />
           {allAnswered && (
             <button
               className="bg-blue-950 mt-5 p-3 text-xl w-fit rounded-lg hover:bg-blue-900 transition-all"
-              onClick={() => {
-                setAllAnswered(false)
-                setQuestion(false)
-                setResponse(null)
-              }}
+              onClick={reset}
             >
               Ask another question
             </button>
