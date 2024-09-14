@@ -19,7 +19,7 @@ export default function Student() {
 
   useEffect(() => {
     if (time === 0) {
-      socket.emit('answer', null)
+      socket.emit('answer', answer !== -1 ? answer : null)
       sessionStorage.setItem('answered', 'true')
       setTime(60)
     }
